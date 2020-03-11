@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-sm-9">
+        <h1><%= @place[:name] %></h1>
+        <h3><%= @place[:location] %></h3>
+
+        <p class="mt-5">
+            <% if @current_user %>
+                <a href="/places/<%= @place[:id] %>/reservations/new" class="btn btn-primary">Reserve now!</a>
+            <% else %>
+                <a href="/logins/new" class="btn btn-danger">Please sign in to RSVP</a>
+            <% end %>
+        </p>
+        <iframe
+        width="600"
+        height="450"
+        frameborder="0" style="border:0"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw
+          &q=<%= @lat_long %>&zoom=10" allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="col-sm-3">
+        <h3>Maximum Number of Campers:</h3>
+        <p><%= @place[:max_campers] %></p>
+</div>

@@ -1,0 +1,7 @@
+            <% until @max_campers == @max_campers + 1 do %>
+            <option><%= @max_campers %></option>
+            <% @max_campers = @max_campers +1 %>
+            <% end %>
+
+
+                puts BCrypt::Password::new(user[:password])

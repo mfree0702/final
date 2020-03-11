@@ -1,0 +1,22 @@
+<h1>Add Your Campsite for Reservation</h1>
+
+<form action="/camps/create" method="post">
+  <div class="form-group">
+    <label>Your Campsite Name</label>
+    <input type="text" class="form-control" name="name">
+  </div>
+
+  <div class="form-group">
+    <label>Your Campsite's City and State </label>
+    <input type="text" class="form-control" placeholder = "Evanston, IL" name="location">
+  </div>
+    <div>
+        <label> Maximum Number of Campers at Campsite </label>
+        <select class="form-control" id="exampleFormControlSelect1" name = "max_campers">
+        <% for i in 1..25 %>
+        <option><%= i %></option>
+        <% end %>
+        </select>
+    </div>
+  <button type="submit" class="btn btn-primary">Add Your Campsite!</button>
+</form>

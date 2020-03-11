@@ -4,32 +4,38 @@ connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqli
 DB = Sequel.connect(connection_string)                                                #
 #######################################################################################
 
-# Database schema - this should reflect your domain model
-DB.create_table! :events do
+# Need to update phonenumber before adding Twilio
+DB.create_table! :users do
   primary_key :id
-  String :title
-  String :description, text: true
-  String :date
-  String :location
-end
-DB.create_table! :rsvps do
-  primary_key :id
-  foreign_key :event_id
-  Boolean :going
   String :name
   String :email
-  String :comments, text: true
+  String :password
+  String :phonenumber
+end
+DB.create_table! :places do
+    primary_key :id
+    String :name
+    String :location
+    String :max_campers
+end
+DB.create_table! :reservations do
+  primary_key :id
+  foreign_key :users_id
+  foreign_key :places_id
+  Date :start_date
+  Date :end_date
+  Integer :num_of_campers
 end
 
 # Insert initial (seed) data
-events_table = DB.from(:events)
+places_table = DB.from(:places)
 
-events_table.insert(title: "Bacon Burger Taco Fest", 
-                    description: "Here we go again bacon burger taco fans, another Bacon Burger Taco Fest is here!",
-                    date: "June 21",
-                    location: "Kellogg Global Hub")
+places_table.insert(name: "Campsite #1", 
+                    location: "Evanston, IL",
+                    max_campers: 10,
+                    )
 
-events_table.insert(title: "Kaleapolooza", 
-                    description: "If you're into nutrition and vitamins and stuff, this is the event for you.",
-                    date: "July 4",
-                    location: "Nowhere")
+places_table.insert(name: "Campsite #2", 
+                    location: "Milwaukee, WI",
+                    max_campers: 5,
+                    )

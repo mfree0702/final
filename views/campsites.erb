@@ -1,0 +1,17 @@
+<h1> Welcome to AirbnTREE </h1>
+
+<table class = "table">
+<thead>
+    <tr>
+        <th scope = "col"> Campsite </th>
+        <th scope = "col"> Location </th>
+    </tr>
+</thead>
+<tbody>
+<% for place in @places %>
+    <tr>
+    <td><a href="/places/<%= place[:id] %>"><%= place[:name] %></a></td>
+    <td><%= place[:location] %></td>
+    </tr>
+<% end %>
+</tbody>

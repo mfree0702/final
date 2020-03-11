@@ -1,0 +1,19 @@
+<h1> Reserve <%= @place[:name] %></h1>
+
+<form action="/places/<%= @place[:id] %>/reservations/create">
+    <div class="form-group">
+        <label>Start Date</label>
+        <input class="form-control" type="date" placeholder="Start Date" name="start_date">
+        <label> End Date </label>
+        <input class="form-control" type="date" placeholder="Start Date" name = "end_date">
+    </div>
+    <div>
+        <label> Number of Campers </label>
+        <select class="form-control" id="exampleFormControlSelect1" name = "num_of_campers">
+        <% for i in 1..@max_campers.to_i %>
+        <option><%= i %></option>
+        <% end %>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
