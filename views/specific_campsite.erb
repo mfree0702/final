@@ -7,7 +7,7 @@
             <% if @current_user %>
                 <a href="/places/<%= @place[:id] %>/reservations/new" class="btn btn-primary">Reserve now!</a>
             <% else %>
-                <a href="/logins/new" class="btn btn-danger">Please sign in to RSVP</a>
+                <a href="/logins/new" class="btn btn-danger">Please sign in to Reserve</a>
             <% end %>
         </p>
         <iframe
