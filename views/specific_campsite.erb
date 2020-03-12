@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-7">
         <h1><%= @place[:name] %></h1>
         <h3><%= @place[:location] %></h3>
 
@@ -19,7 +19,26 @@
       </iframe>
     </div>
 
-    <div class="col-sm-3">
+    <div class="col-sm-5">
         <h3>Maximum Number of Campers:</h3>
         <p><%= @place[:max_campers] %></p>
+    <table class = "table">
+        <thead>
+            <tr>
+                <th scope = "col"> Name of Reservation </th>
+                <th scope = "col"> Campers </th>
+                <th scope = "col"> Start Date </th>
+                <th scope = "col"> End Date </th>
+            </tr>
+        </thead>
+        <tbody>
+        <% for reservation in @reservations %>
+            <tr>
+            <td><%=@users_table.where(id: reservation[:users_id]).to_a[0][:name]%></td>
+            <td><%= reservation[:num_of_campers] %></td>
+            <td><%= reservation[:start_date] %></td>
+            <td><%= reservation[:end_date] %></td>
+            </tr>
+        <% end %>
+        </tbody>
 </div>

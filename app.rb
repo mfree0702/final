@@ -20,11 +20,8 @@ users_table = DB.from(:users)
 reservations_table = DB.from(:reservations)
 
 # put your API credentials here (found on your Twilio dashboard)
-account_sid = "ACdfc974ea1f7cae4a6f0229a4600d4c3a"
-auth_token = "da176ce7995b47c8e51ecddfb2ddaac4"
-
 # set up a client to talk to the Twilio REST API
-client = Twilio::REST::Client.new(account_sid, auth_token)
+
 
 # send the SMS from your trial Twilio number to your verified non-Twilio number
 
@@ -39,7 +36,7 @@ end
 
 get "/places/:id" do
     @place = places_table.where(id: params[:id]).to_a[0]
-    @reservations = reservations_table.where(place_id: @place[:id])
+    @reservations = reservations_table.where(places_id: @place[:id])
     @users_table = users_table
     
     @results = Geocoder.search(@place[:location])
@@ -59,9 +56,14 @@ end
 get "/places/:id/reservations/create" do
     puts params
 
-    client = Twilio::REST::Client.new(account_sid, auth_token)
-    account_sid = "ACdfc974ea1f7cae4a6f0229a4600d4c3a"
-    auth_token = "da176ce7995b47c8e51ecddfb2ddaac4"
+    twilio_account_sid = ENV['TWILIO_ACCOUNT_SID']
+    twilio_auth_token = ENV['TWILIO_AUTH_TOKEN']
+
+    puts "LOOK HERE**"
+    puts twilio_account_sid
+    puts twilio_auth_token
+
+    client = Twilio::REST::Client.new(twilio_account_sid, twilio_auth_token)
 
     @place = places_table.where(id: params["id"]).to_a[0]
     reservations_table.insert(places_id: params["id"],
@@ -69,10 +71,10 @@ get "/places/:id/reservations/create" do
                        start_date: params["start_date"],
                        end_date: params["end_date"],
                        num_of_campers: params["num_of_campers"])
-    # Given Twilio restrictions, the "to" is just my number hard coded. It would normally pull the info from the users table. 
     
+    # Given Twilio restrictions, the "to" is just my number hard coded. It would normally pull the info from the users table. 
     client.messages.create(
-        from: "+12565888953", 
+        from: "+18133444977", 
         to: "+16306087300",
         body: "You have successfully reserved #{@place[:name]}"
         )
